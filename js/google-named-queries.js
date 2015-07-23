@@ -4,13 +4,13 @@
 GQuery.named = {
 
   // Generic transactions to be processed by client
-  transactions: "select A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,X,Y,Z,AA,AB" + "&sheet=transactions",
+  transactions: "select A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,X,Y,Z,AA,AB" + "&sheet=transactions_transposed",
 
   // ingresos level 1
 
   sumByYears: function(years){
     return "select C, D, sum(F) " + GQuery.namedHelpers.contain('D', years) +
-      "group by C, D" + "&sheet=transactions";
+      "group by C, D" + "&sheet=transactions_transposed";
   },
 
   sumByType: function(year){
@@ -18,17 +18,17 @@ GQuery.named = {
     if((typeof year == 'string' && year[0]) || typeof year == 'number'){
       //          type   prod     gov     com     count   currency   name
       return "select C, sum(F), sum(Z), sum(Y), count(A),        AB,     B " +
-        "where D = '" + year.toString() + "' group by C, AB, B order by C desc" + "&sheet=transactions";
+        "where D = '" + year.toString() + "' group by C, AB, B order by C desc" + "&sheet=transactions_transposed";
       // receiving callback or other cases
     } else {
       return "select C, sum(F), sum(Z), sum(Y), count(A),        AB,     B " +
-        " group by C, AB, B" + "&sheet=transactions";
+        " group by C, AB, B" + "&sheet=transactions_transposed";
     }
   },
 
   //                             year  prod                type
   productionByYearBySector: "select D, sum(E) group by D pivot C" +
-    "&sheet=transactions",
+    "&sheet=transactions_transposed",
 
   // ingresos level 2
   // authorities for a given type and year
@@ -43,7 +43,7 @@ GQuery.named = {
   // type
   companies1: function(years, type){
     return "select D, sum(E), sum(P) " + GQuery.namedHelpers.contain('D', years) +
-      "and C = '" + type + "' group by D" + "&sheet=transactions";
+      "and C = '" + type + "' group by D" + "&sheet=transactions_transposed";
   },
 
   // empresas level 1
@@ -55,7 +55,7 @@ GQuery.named = {
       "&sheet=transactions";
     //          name   prod     gov     com    diff       txs
     return "select B, sum(F), sum(Z), sum(Y), sum(AA), count(A) " +
-      "where D = '" + year + "' group by B" + "&sheet=transactions";
+      "where D = '" + year + "' group by B" + "&sheet=transactions_transposed";
   },
 
   // Front Page
@@ -68,13 +68,13 @@ GQuery.named = {
   //            year  currency   auth    comp
   colDiff: "select D, AB, sum(Y), sum(Z) where AB !='' group by D, AB " +
     "label sum(Y) 'Según Gobierno', sum(Z) 'Según Empresas'" +
-    "&sheet=transactions",
+    "&sheet=transactions_transposed",
 
   //              name  type  aggr
   companies: "select B, C, D" + "&sheet=empresas",
 
   //                 year   comp    auth         year
-  authoritySum: "select D, sum(H), sum(I) group by D" + "&sheet=transactions",
+  authoritySum: "select D, sum(H), sum(I) group by D" + "&sheet=transactions_transposed",
 
   // Pie chart
   companiesByAggregation:
@@ -83,7 +83,7 @@ GQuery.named = {
 
   // Distribution page
   distribution: function(year){
-    return "select A, B, C, D where B = " + year + "&sheet=canon";
+    return "select A, B, C, D where B = " + year + "&sheet=distribucion";
   },
 
   // Rates
