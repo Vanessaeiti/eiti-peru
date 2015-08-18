@@ -44,9 +44,9 @@ title: 'Inicio'
 google.load("visualization", "1", {packages:["corechart"]});
 
 $(document).ready(function() {
-  GChart.chain(['first','second','third'], function(dataTable){
+  GChart.chain(['first','second','third','fourth'], function(dataTable){
     GDataTable.col(dataTable, 0,
-    ['Primer Estudio', 'Segundo Estudio', 'Tercer Estudio']);
+    ['Primer Estudio', 'Segundo Estudio', 'Tercer Estudio', 'Cuarto Estudio']);
 
     var options = {legend: {position: 'bottom'}};
     GChart.draw('companies-vs-studies-bar-chart', dataTable, 'ColumnChart',
